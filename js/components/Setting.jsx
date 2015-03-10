@@ -6,7 +6,7 @@ export default class Setting extends React.Component {
     }
 
     onChangeStting() {
-        this.props.onChangeStting(this.props.setting);
+        this.props.onChangeStting(this.props.setting)
     }
 
     render() {

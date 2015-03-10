@@ -3,7 +3,11 @@ import React from 'react'
 export default class Counter extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {count: props.initialCount};
+        this.state = {count: props.initialCount}
+    }
+
+    count(count) {
+        this.setState({count: count})
     }
 
     render() {

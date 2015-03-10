@@ -7,6 +7,7 @@ export default class Octopus extends React.Component {
 
     jump() {
         // TODO
+        console.log('jump!')
     }
 
     render() {

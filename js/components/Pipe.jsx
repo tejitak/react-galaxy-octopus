@@ -6,6 +6,6 @@ export default class Pipe extends React.Component {
     }
 
     render() {
-        return <div></div>
+        return <div>This is a pipe</div>
     }
 }
