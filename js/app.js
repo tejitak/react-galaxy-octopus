@@ -1,7 +1,7 @@
 import React from 'react'
-import GallaxyOctopus from './components/GallaxyOctopus'
+import GallaxyOctopus from './GallaxyOctopus'
 
 React.render(
-  <GallaxyOctopus />,
-  document.getElementById('app')
+    <GallaxyOctopus />,
+    document.getElementById('app')
 )
