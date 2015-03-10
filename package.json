@@ -1,0 +1,25 @@
+{
+  "name": "react-galaxy-octopus",
+  "version": "1.0.0",
+  "description": "flappy bird inspired game with react",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tejitak/react-galaxy-octopus.git"
+  },
+  "author": "tejitak",
+  "license": "MIT",
+  "dependencies": {
+    "babel-runtime": "^4.7.5"
+  },
+  "devDependencies": {
+    "del": "^1.1.1",
+    "envify": "^3.2.0",
+    "gulp": "^3.8.10",
+    "gulp-connect": "^2.2.0",
+    "gulp-webpack": "^1.2.0",
+    "webpack": "^1.5.3",
+    "react": "^0.13.0-beta.1",
+    "babel": "^4.7.5",
+    "babel-loader": "^4.1.0"
+  }
+}
