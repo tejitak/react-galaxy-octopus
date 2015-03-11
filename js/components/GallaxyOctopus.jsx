@@ -1,6 +1,6 @@
 import React from 'react'
-import Canvas from './components/Canvas'
-import Setting from './components/Setting'
+import Canvas from './Canvas'
+import Setting from './settings/Setting'
 
 export default class GallaxyOctopus extends React.Component {
     constructor(props) {
@@ -10,18 +10,19 @@ export default class GallaxyOctopus extends React.Component {
                 reverseGravity: true
             }
         };
+        React.initializeTouchEvents(true)
     }
 
-    onChangeStting(setting) {
+    onChangeSetting(setting) {
         // set game parameter
-        this.setState({ setting: setting });
+        this.setState({ setting: setting })
     }
 
     render() {
         return (
             <div>
                 <Canvas setting={this.state.setting} style={{cursor:'pointer'}} />
-                <Setting onChangeSetting={this.onChangeStting.bind(this)} />
+                <Setting setting={this.state.setting} onChangeSetting={this.onChangeSetting.bind(this)} />
             </div>
         )
     }

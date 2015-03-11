@@ -1,5 +1,5 @@
 import React from 'react'
-import GallaxyOctopus from './GallaxyOctopus'
+import GallaxyOctopus from './components/GallaxyOctopus'
 
 React.render(
     <GallaxyOctopus />,

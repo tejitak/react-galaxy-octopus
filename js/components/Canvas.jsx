@@ -1,17 +1,24 @@
 import React from 'react'
-import Loop from '../Loop'
-import Counter from './Counter'
-import Octopus from './Octopus'
-import Pipe from './Pipe'
+import Loop from '../util/Loop'
+import Counter from './parts/Counter'
+import Octopus from './parts/Octopus'
+import Pipe from './parts/Pipe'
 
 export default class Canvas extends React.Component {
     constructor(props) {
         super(props)
         // setup phase INTRO, RUNNING, ENDING
-        this.state = {phase: 'INTRO', pipes: []}
+        this.state = {phase: 'INTRO', pipes: [], count: 0}
         // create main loop
         this._loop = new Loop(this.watchPos.bind(this))
-        this._pipeTimer = setInterval(this._createPipe.bind(this), 1000);
+        this._pipeTimer = setInterval(this._createPipe.bind(this), props.pipeInterval);
+        // space key handling
+        document.body.addEventListener('keydown', (e)=>{
+            var key = (window.Event) ? e.which : e.keyCode
+            if(key === 32) {
+                this.onClickCanvas()
+            }
+        })
     }
 
     watchPos() {
@@ -31,11 +38,11 @@ export default class Canvas extends React.Component {
 
     // detect collision
     detectCollision() {
-        return {state: 'HIT'}
+        // return {state: 'HIT'}
     }
 
     // listen click and space key
-    onClickCanvas(e) {
+    onClickCanvas() {
         switch(this.state.phase) {
             case 'INTRO':
                 this.setState({phase: 'RUNNING'}, () => {
@@ -44,8 +51,7 @@ export default class Canvas extends React.Component {
                 break;
             case 'RUNNING':
                 this.refs.octopus.jump();
-                // temp
-                this.setState({phase: 'ENDING'})
+                // this.setState({phase: 'ENDING'})
                 break;
             case 'ENDING':
                 break;
@@ -55,7 +61,21 @@ export default class Canvas extends React.Component {
     // create and move pipe
     _createPipe() {
         console.log("createPipe");
-        this.state.pipes.push({id: 1, top: 10, gap: 200});
+        var pipes = this.state.pipes,
+            top = Math.floor(Math.random() * (this.canvasHeight - 250)) + 50,
+            bottom = this.canvasHeight - (top + this.props.gapHeight)
+        // show at most two pipes
+        if(pipes.length > 1){
+            pipes.splice(0, 1)
+        }
+
+        this.setState({pipes: pipes.concat({
+            id: this.state.count++,
+            top: top,
+            bottom: bottom,
+            pipeInterval: this.props.pipeInterval,
+            canvasWidth: this.canvasWidth
+        })})
     }
 
     // called when successfully jumped
@@ -71,19 +91,30 @@ export default class Canvas extends React.Component {
 
     // update counter
     _updateCount(count) {
-        this.refs.counter.update(count);
+        this.setState({count: count})
+    }
+
+    componentDidMount() {
+        var canvas = React.findDOMNode(this.refs.canvas);
+        this.canvasWidth = canvas.offsetWidth
+        this.canvasHeight = canvas.offsetHeight
     }
 
     render() {
-        // ref to octopus
         return (
-            <div className="canvas" onClick={this.onClickCanvas.bind(this)}>
-                <Counter ref="counter"/>
-                <Octopus ref="octopus"/>
+            <div className="canvas" onClick={this.onClickCanvas.bind(this)} ref="canvas">
+                <Counter count="{this.state.count}"/>
+                <Octopus ref="octopus" reverse={this.props.setting.reverseGravity} canvasHeight={this.canvasHeight}/>
                 {this.state.pipes.map(function(pipe) {
-                   return <Pipe key={pipe.id} top={pipe.top} gap={pipe.gap}/>;
+                   return <Pipe key={pipe.id} top={pipe.top} bottom={pipe.bottom} pipeInterval={pipe.pipeInterval} canvasWidth={pipe.canvasWidth}/>;
                 })}
             </div>
         )
     }
+}
+
+
+Canvas.defaultProps = {
+    pipeInterval: 1600,
+    gapHeight: 120
 }

@@ -15,7 +15,7 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.js$|\.jsx$/, exclude: /node_modules|public\/dist/, loader: 'babel-loader?experimental&optional=selfContained'}
+      { test: /\.js$|\.jsx$/, exclude: /node_modules|build/, loader: 'babel-loader?experimental&optional=runtime'}
     ]
   },
 
