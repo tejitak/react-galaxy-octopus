@@ -1,6 +1,9 @@
 var gulp = require('gulp');
 var del = require('del');
+var argv = require('yargs').argv;
+var gulpif = require('gulp-if');
 var connect = require('gulp-connect');
+var uglify = require('gulp-uglify');
 var webpack = require('gulp-webpack');
 var webpackConfig = require('./webpack.config.js');
 
@@ -14,6 +17,7 @@ gulp.task('clean', function () {
 gulp.task('build', function () {
   return gulp.src(webpackConfig.entry.app[0])
     .pipe(webpack(webpackConfig))
+    .pipe(gulpif(argv.production, uglify()))
     .pipe(gulp.dest('build/'));
 });
 

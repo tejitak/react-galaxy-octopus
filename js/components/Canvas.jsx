@@ -22,15 +22,12 @@ export default class Canvas extends React.Component {
 
     watchPos() {
         if(this.state.phase === 'RUNNING'){
-            console.log("detect...")
             var res = this.detectCollision()
             if(!res){ return true }
             if(res.state === 'HIT'){
                 // collision detected & game end
-                console.log("game end!")
                 this._fail()
             }else if(res.state === 'SUCCESS'){
-                console.log("SUCESS! : " + res.count)
                 this._updateCount(res.count)
             }
             return true
@@ -86,7 +83,6 @@ export default class Canvas extends React.Component {
 
     // create and move pipe
     _createPipe() {
-        console.log("createPipe")
         var pipes = this.state.pipes,
             topHeight = Math.floor(Math.random() * (this.canvasHeight - 250)) + 50,
             bottomHeight = this.canvasHeight - (topHeight + this.props.gapHeight)

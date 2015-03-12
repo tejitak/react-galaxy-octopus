@@ -26,7 +26,6 @@ export default class Octopus extends React.Component {
             canvasH = this.props.canvasHeight,
             octopusBottom = parseInt(octopus.style.bottom)
         var distance = reverse ? canvasH - octopusBottom - octopusH : octopusBottom
-        console.log("ditance: " + distance)
         var totalFallTime = 1000/*time for fall*/ * distance / canvasH
         $octopus.stop().animate({
             bottom: reverse ? canvasH - octopusH : 0
@@ -38,7 +37,6 @@ export default class Octopus extends React.Component {
     }
 
     jump() {
-        console.log("jump!")
         var $octopus = $(React.findDOMNode(this.refs.octopus)),
             reverse = this.props.reverse
         this._isMoving = true

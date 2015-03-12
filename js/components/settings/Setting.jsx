@@ -15,7 +15,10 @@ export default class Setting extends React.Component {
     render() {
         return (
             <div className='settings'>
-                <div><input type='checkbox' checked={this.state.reverseGravity} onChange={this.onChangeSetting.bind(this)}/><label>Reverse gravity</label></div>
+                <div>
+                    <input id="input_reverseGravity" type='checkbox' checked={this.state.reverseGravity} onChange={this.onChangeSetting.bind(this)}/>
+                    <label htmlFor="input_reverseGravity">Reverse gravity</label>
+                </div>
             </div>
         )
     }
