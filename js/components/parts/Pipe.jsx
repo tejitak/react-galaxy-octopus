@@ -23,6 +23,10 @@ export default class Pipe extends React.Component {
         }
     }
 
+    stop() {
+        $(React.findDOMNode(this.refs.pipe)).stop()
+    }
+
     render() {
         return (
             <div className="pipe" ref="pipe">

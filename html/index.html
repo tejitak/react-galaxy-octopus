@@ -4,55 +4,50 @@
     <meta charset="UTF-8">
     <title>Galaxy Octopus with React</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../css/main.css" />
-    <style>
-        .social_container {
-            width: 300px;
-            margin: 8px auto;
-            text-align: center;
-        }
-        .social_container .social_item{
-            display: inline-block;
-            padding: 4px 20px
-        }
-        @media (min-width: 481px) {
-            .social_container {
-                width: 100%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../css/demo.css" />
 </head>
 <body>
+    <header>Galaxy Octopus with React</header>
     <div class="description">
-        <h2>Galaxy Octopus with React</h2>
-    </div>
-    <div class="social_container">
-        <div class="social_item">
-            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://tejitak.github.io/react-galaxy-octopus/html/" data-via="" data-lang="en">Tweet</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        <div>
+            A simple game by JavaScript (React) heavily inspired from Flappy Bird.
+            <a href="http://tejitak.github.io/jquery-galaxy-octopus/html/">jQuery Version</a>
         </div>
-        <div class="social_item">
-            <iframe src="http://ghbtns.com/github-btn.html?user=tejitak&repo=react-galaxy-octopus&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="104px" height="20px"></iframe>
-        </div>
-        <div class="social_item" style="position: relative; top: -4px;">
-            <div id="fb-root"></div>
-            <script>(function(d, s, id) {
-              var js, fjs = d.getElementsByTagName(s)[0];
-              if (d.getElementById(id)) return;
-              js = d.createElement(s); js.id = id;
-              js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=556655494444828&version=v2.0";
-              fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));</script>
-            <div class="fb-like" data-href="http://tejitak.github.io/react-galaxy-octopus/html/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
-        </div>
-        <div class="social_item">
-            <a href="http://b.hatena.ne.jp/entry/http://tejitak.github.io/react-galaxy-octopus/html/" class="hatena-bookmark-button" data-hatena-bookmark-title="Galaxy Octopus with React" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
-        </div>
-    </div>
-    <div class="wrap">
-        <div id="app"></div>
         <div>Click or Press Space to START!</div>
     </div>
+    <!-- Galaxy Octopus -->
+    <div class="wrap">
+        <div id="app"></div>
+    </div>
+    <!--/ Galaxy Octopus -->
+    <footer>
+        <div class="social_container">
+            <div class="social_item">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://tejitak.github.io/react-galaxy-octopus/html/" data-via="" data-lang="en">Tweet</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            </div>
+            <div class="social_item">
+                <iframe src="http://ghbtns.com/github-btn.html?user=tejitak&repo=react-galaxy-octopus&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="104px" height="20px"></iframe>
+            </div>
+            <div class="social_item" style="position: relative; top: -4px;">
+                <div id="fb-root"></div>
+                <script>(function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) return;
+                  js = d.createElement(s); js.id = id;
+                  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=556655494444828&version=v2.0";
+                  fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));</script>
+                <div class="fb-like" data-href="http://tejitak.github.io/react-galaxy-octopus/html/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+            </div>
+            <div class="social_item">
+                <a href="http://b.hatena.ne.jp/entry/http://tejitak.github.io/react-galaxy-octopus/html/" class="hatena-bookmark-button" data-hatena-bookmark-title="Galaxy Octopus with React" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+            </div>
+        </div>
+        <div>Design and Implemented by <a href="https://twitter.com/tejitak" target="_blank">tejitak</a></div>
+    </footer>
     <script src="../build/app.js"></script>
 </body>
 </html>

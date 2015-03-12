@@ -19,7 +19,7 @@ export default class Setting extends React.Component {
             </div>
         )
     }
-};
+}
 
 Setting.defaultProps = {
     setting: {

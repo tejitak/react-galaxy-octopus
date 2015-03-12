@@ -1,4 +1,4 @@
-# Galaxy Octopus with jQuery  
+# Galaxy Octopus with React  
 
 A simple game by JavaScript heavily inspired from Flappy Bird.  
 

@@ -1,7 +1,7 @@
 {
   "name": "react-galaxy-octopus",
   "version": "1.0.0",
-  "description": "flappy bird inspired game with react",
+  "description": "Galaxy octopus which is a simple game by React heavily inspired from Flappy Bird.",
   "repository": {
     "type": "git",
     "url": "https://github.com/tejitak/react-galaxy-octopus.git"

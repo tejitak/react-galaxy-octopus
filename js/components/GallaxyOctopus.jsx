@@ -9,7 +9,7 @@ export default class GallaxyOctopus extends React.Component {
             setting: {
                 reverseGravity: true
             }
-        };
+        }
         React.initializeTouchEvents(true)
     }
 
