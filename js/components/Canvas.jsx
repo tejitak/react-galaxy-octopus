@@ -38,7 +38,26 @@ export default class Canvas extends React.Component {
 
     // detect collision
     detectCollision() {
-        // return {state: 'HIT'}
+        var reverse = this.props.setting.reverseGravity,
+            canvasH = React.findDOMNode(this.refs.canvas).offsetHeight,
+            octopusPos = this.refs.octopus.getPos();
+        if((octopusPos.t + octopusPos.h) === (reverse ? canvasH - octopusPos.h : 0)){
+            return {state: "HIT"};
+        }
+        var count = this.state.count,
+            pipe = this.refs[count - 1]
+        if(pipe){
+            var gapPos = pipe.getGapPos();
+            // detect left to right range
+            if((octopusPos.l + octopusPos.w) >= gapPos.l && octopusPos.l <= (gapPos.l + gapPos.w)){
+                // detect bottom to top range
+                if(octopusPos.t < gapPos.t || (octopusPos.t + octopusPos.h) > gapPos.t + this.props.gapHeight){
+                    return {state: "HIT"};
+                }
+            } else if(octopusPos.l >= (gapPos.l + gapPos.w)){
+                return {state: "SUCCESS", count: count};
+            }
+        }
     }
 
     // listen click and space key
@@ -62,17 +81,17 @@ export default class Canvas extends React.Component {
     _createPipe() {
         console.log("createPipe");
         var pipes = this.state.pipes,
-            top = Math.floor(Math.random() * (this.canvasHeight - 250)) + 50,
-            bottom = this.canvasHeight - (top + this.props.gapHeight)
+            topHeight = Math.floor(Math.random() * (this.canvasHeight - 250)) + 50,
+            bottomHeight = this.canvasHeight - (topHeight + this.props.gapHeight)
         // show at most two pipes
         if(pipes.length > 1){
             pipes.splice(0, 1)
         }
-
         this.setState({pipes: pipes.concat({
             id: this.state.count++,
-            top: top,
-            bottom: bottom,
+            topHeight: topHeight,
+            bottomHeight: bottomHeight,
+            gapHeight: this.props.gapHeight,
             pipeInterval: this.props.pipeInterval,
             canvasWidth: this.canvasWidth
         })})
@@ -106,7 +125,7 @@ export default class Canvas extends React.Component {
                 <Counter count="{this.state.count}"/>
                 <Octopus ref="octopus" reverse={this.props.setting.reverseGravity} canvasHeight={this.canvasHeight}/>
                 {this.state.pipes.map(function(pipe) {
-                   return <Pipe key={pipe.id} top={pipe.top} bottom={pipe.bottom} pipeInterval={pipe.pipeInterval} canvasWidth={pipe.canvasWidth}/>;
+                   return <Pipe ref={pipe.id} key={pipe.id} topHeight={pipe.topHeight} bottomHeight={pipe.bottomHeight} pipeInterval={pipe.pipeInterval} canvasWidth={pipe.canvasWidth} gapHeight={pipe.gapHeight}/>;
                 })}
             </div>
         )

@@ -6,6 +6,16 @@ export default class Octopus extends React.Component {
         super(props)
     }
 
+    getPos() {
+        var $octopus = $(React.findDOMNode(this.refs.octopus))
+        return {
+            w: $octopus.width(),
+            h: $octopus.height(),
+            t: $octopus.offset().top,
+            l: $octopus.offset().left
+        }
+    }
+
     fall() {
         var $dfd = $.Deferred(),
             $octopus = $(React.findDOMNode(this.refs.octopus)),

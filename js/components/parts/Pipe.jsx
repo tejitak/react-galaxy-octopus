@@ -13,11 +13,21 @@ export default class Pipe extends React.Component {
         }, this.props.pipeInterval * 2, 'linear')
     }
 
+    getGapPos() {
+        var $pipe = $(React.findDOMNode(this.refs.pipe))
+        return {
+            w: $pipe.width(),
+            h: this.props.gapHeight,
+            t: this.props.topHeight,
+            l: $pipe.offset().left
+        }
+    }
+
     render() {
         return (
             <div className="pipe" ref="pipe">
-                <div style={{height: this.props.top + 'px'}} className="pipeTopHalf"></div>
-                <div style={{height: this.props.bottom + 'px'}} className="pipeBottomHalf"></div>
+                <div style={{height: this.props.topHeight + 'px'}} className="pipeTopHalf"></div>
+                <div style={{height: this.props.bottomHeight + 'px'}} className="pipeBottomHalf"></div>
             </div>
         )
     }
@@ -25,5 +35,6 @@ export default class Pipe extends React.Component {
 
 Pipe.defaultProps = {
     pipeInterval: 0,
-    canvasWidth: 0
+    canvasWidth: 0,
+    gapHeight: 0
 }
