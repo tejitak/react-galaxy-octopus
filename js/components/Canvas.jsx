@@ -104,10 +104,11 @@ export default class Canvas extends React.Component {
     // fail to jump
     _fail() {
         this._loop.end()
-        this.setState({phase: 'ENDING'})
         clearInterval(this._pipeTimer)
-        this.refs.octopus.fall().then(() => this.setState({phase: 'INTRO'}))
         this.state.pipes.map((pipe) => { this.refs[pipe.id].stop() })
+        this.setState({phase: 'ENDING'}, () => {
+            this.refs.octopus.fall().then(() => this.setState({phase: 'INTRO'}))
+        })
     }
 
     // update counter
