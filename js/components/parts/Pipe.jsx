@@ -7,19 +7,21 @@ export default class Pipe extends React.Component {
     }
 
     componentDidMount() {
-        var $pipe = $(React.findDOMNode(this.refs.pipe))
+        var pipe = React.findDOMNode(this.refs.pipe),
+            $pipe = $(pipe)
         $pipe.animate({
-            right: '+=' + (this.props.canvasWidth + $pipe.width()) + 'px'
+            right: '+=' + (this.props.canvasWidth + pipe.offsetWidth) + 'px'
         }, this.props.pipeInterval * 2, 'linear')
     }
 
     getGapPos() {
-        var $pipe = $(React.findDOMNode(this.refs.pipe))
+        var pipe = React.findDOMNode(this.refs.pipe),
+            box = pipe.getBoundingClientRect()
         return {
-            w: $pipe.width(),
+            w: pipe.offsetWidth,
             h: this.props.gapHeight,
             t: this.props.topHeight,
-            l: $pipe.offset().left
+            l: box.left
         }
     }
 

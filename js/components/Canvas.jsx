@@ -28,6 +28,7 @@ export default class Canvas extends React.Component {
                 // collision detected & game end
                 this._fail()
             }else if(res.state === 'SUCCESS'){
+                // successfully jumped
                 this._updateCount(res.count)
             }
             return true
@@ -64,14 +65,12 @@ export default class Canvas extends React.Component {
         e.preventDefault();
         switch(this.state.phase) {
             case 'INTRO':
-                if(!this.refs.octopus.isMoving()) {
-                    this.setState({phase: 'RUNNING', count: 0, pipes: []}, () => {
-                        React.findDOMNode(this.refs.octopus).style.bottom = (this.canvasHeight / 2) + "px"
-                        this._loop.start()
-                        this._pipeTimer = setInterval(this._createPipe.bind(this), this.props.pipeInterval)
-                        this.refs.octopus.jump()
-                    })
-                }
+                this.setState({phase: 'RUNNING', count: 0, pipes: []}, () => {
+                    React.findDOMNode(this.refs.octopus).style.bottom = (this.canvasHeight / 2) + "px"
+                    this._loop.start()
+                    this._pipeTimer = setInterval(this._createPipe.bind(this), this.props.pipeInterval)
+                    this.refs.octopus.jump()
+                })
                 break
             case 'RUNNING':
                 this.refs.octopus.jump()
@@ -102,25 +101,18 @@ export default class Canvas extends React.Component {
         })})
     }
 
-    // called when successfully jumped
-    _success() {
-
-    }
-
     // fail to jump
     _fail() {
         this._loop.end()
+        this.setState({phase: 'ENDING'})
         clearInterval(this._pipeTimer)
-        this.refs.octopus.fall()
+        this.refs.octopus.fall().then(() => this.setState({phase: 'INTRO'}))
         this.state.pipes.map((pipe) => { this.refs[pipe.id].stop() })
-        this.setState({phase: 'INTRO'})
     }
 
     // update counter
     _updateCount(count) {
-        this.setState({count: count}, () => {
-            this.forceUpdate()
-        })
+        this.setState({count: count})
     }
 
     componentDidMount() {
