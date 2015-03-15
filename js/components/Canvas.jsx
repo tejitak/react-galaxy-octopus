@@ -29,7 +29,7 @@ export default class Canvas extends React.Component {
                 this._fail()
             }else if(res.state === 'SUCCESS'){
                 // successfully jumped
-                this._updateCount(res.count)
+                this._incrementCount()
             }
             return true
         }        
@@ -44,9 +44,10 @@ export default class Canvas extends React.Component {
             return {state: "HIT"}
         }
         // first pipe data
-        var pipe = this.state.pipes[0]
+        var pipeId = this.state.count + 1,
+            pipe = this.refs[pipeId]
         if(pipe){
-            var gapPos = this.refs[pipe.id].getGapPos()
+            var gapPos = this.refs[pipeId].getGapPos()
             // detect left to right range
             if((octopusPos.l + octopusPos.w) >= gapPos.l && octopusPos.l <= (gapPos.l + gapPos.w)){
                 // detect bottom to top range
@@ -54,7 +55,7 @@ export default class Canvas extends React.Component {
                     return {state: "HIT"}
                 }
             } else if(octopusPos.l >= (gapPos.l + gapPos.w)){
-                return {state: "SUCCESS", count: pipe.id}
+                return {state: "SUCCESS"}
             }
         }
     }
@@ -112,8 +113,8 @@ export default class Canvas extends React.Component {
     }
 
     // update counter
-    _updateCount(count) {
-        this.setState({count: count})
+    _incrementCount(count) {
+        this.setState({count: this.state.count + 1})
     }
 
     componentDidMount() {
