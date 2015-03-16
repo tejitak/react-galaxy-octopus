@@ -39,8 +39,9 @@ export default class Canvas extends React.Component {
     detectCollision() {
         var reverse = this.props.setting.reverseGravity,
             canvasH = React.findDOMNode(this.refs.canvas).offsetHeight,
-            octopusPos = this.refs.octopus.getPos()
-        if(reverse ? octopusPos.t === 0 : (octopusPos.t + octopusPos.h) === canvasH){
+            octopusPos = this.refs.octopus.getPos(),
+            hitBuf = 10
+        if(reverse ? octopusPos.t < hitBuf : (octopusPos.t + octopusPos.h) > canvasH - hitBuf){
             return {state: "HIT"}
         }
         // first pipe data
@@ -67,10 +68,11 @@ export default class Canvas extends React.Component {
         switch(this.state.phase) {
             case 'INTRO':
                 this.setState({phase: 'RUNNING', count: 0, pipes: []}, () => {
-                    React.findDOMNode(this.refs.octopus).style.bottom = (this.canvasHeight / 2) + "px"
-                    this._loop.start()
-                    this._pipeTimer = setInterval(this._createPipe.bind(this), this.props.pipeInterval)
-                    this.refs.octopus.jump()
+                    this.refs.octopus.setState({bottom: this.refs.octopus.props.initBottom}, () => {
+                        this._loop.start()
+                        this._pipeTimer = setInterval(this._createPipe.bind(this), this.props.pipeInterval)
+                        this.refs.octopus.jump()
+                    })
                 })
                 break
             case 'RUNNING':

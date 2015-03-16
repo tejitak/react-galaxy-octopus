@@ -1,9 +1,15 @@
 import React from 'react'
-import $ from 'jquery'
+import Animate from '../../util/Animate'
 
 export default class Octopus extends React.Component {
     constructor(props) {
         super(props)
+        // initialize state
+        this.state = {
+            bottom: props.initBottom
+        }
+        // react state animation wrapper
+        this._animate = new Animate(this)
     }
 
     getPos() {
@@ -19,48 +25,62 @@ export default class Octopus extends React.Component {
 
     fall() {
         return new Promise((resolve, reject) => {
-            var octopus = React.findDOMNode(this.refs.octopus),
-                $octopus = $(octopus),
-                reverse = this.props.reverse,
-                octopusH = this.getPos().h,
+            var pos = this.getPos(),
                 canvasH = this.props.canvasHeight,
-                octopusBottom = parseInt(octopus.style.bottom)
-            var distance = reverse ? canvasH - octopusBottom - octopusH : octopusBottom
-            var totalFallTime = 1000/*time for fall*/ * distance / canvasH
-            $octopus.stop().animate({
-                bottom: reverse ? canvasH - octopusH : 0
-            }, totalFallTime, 'linear', () => {
-                resolve()
-            }).css('transform', 'rotate(' + (reverse ? '-' : '') + '90deg)')
+                reverse = this.props.reverse,
+                operator = reverse ? -1 : 1,
+                distance = reverse ? pos.t + pos.h : canvasH - pos.t,
+                totalFallTime = 1000/*time for fall*/ * distance / canvasH
+            // rotate by css transform
+            this.rotate(90 * operator)
+            this._animate
+                .stop()
+                .linear('bottom', reverse ? canvasH - pos.h : 0, totalFallTime)
+                .then(resolve)
         })
     }
 
     jump() {
         return new Promise((resolve, reject) => {
-            var $octopus = $(React.findDOMNode(this.refs.octopus)),
-                reverse = this.props.reverse
-            $octopus.css('transform', 'rotate(' + (reverse ? '' : '-') + '20deg)').stop().animate({
-                bottom: (reverse ? '-' : '+') + '=60px'
-            }, 200, () => {
-                $octopus.css('transform', 'rotate(0deg)').stop().animate({
-                    bottom: (reverse ? '+' : '-') + '=60px'
-                }, 300, 'linear', () => {
-                    this.fall().then(resolve)
+            var distance = 60, 
+                operator = this.props.reverse ? -1 : 1,
+                pos = this.getPos()
+            // rotate by css transform
+            this.rotate(-20 * operator)
+            this._animate
+                .stop()
+                .linear('bottom', this.state.bottom + (distance * operator), 200)
+                .then(() => {
+                    this.rotate(0)
+                    this._animate.linear('bottom', this.state.bottom - (distance * operator), 300)
+                        .then(() => {
+                            this.fall().then(resolve)
+                        })
                 })
-            })
+
         })
     }
 
+    rotate(deg) {
+        var octopus = React.findDOMNode(this.refs.octopus)
+        octopus.style.webkitTransform = 'rotate(' + deg + 'deg)'
+        octopus.style.mozTransform = 'rotate(' + deg + 'deg)'
+        octopus.style.msTransform = 'rotate(' + deg + 'deg)'
+        octopus.style.oTransform = 'rotate(' + deg + 'deg)'
+        octopus.style.transform = 'rotate(' + deg + 'deg)'
+    }
+
     stop() {
-        $(React.findDOMNode(this.refs.octopus)).stop()
+        this._animate.stop()
     }
 
     render() {
-        return <div className='octopus' ref="octopus"></div>
+        return <div className='octopus' ref="octopus" style={{bottom: this.state.bottom + 'px'}}></div>
     }
 }
 
 Octopus.defaultProps = {
+    initBottom: 225,
     canvasHeight: 0,
     reverse: false
 }

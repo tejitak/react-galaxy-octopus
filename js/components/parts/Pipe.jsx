@@ -1,17 +1,23 @@
 import React from 'react'
-import $ from 'jquery'
+import Animate from '../../util/Animate'
 
 export default class Pipe extends React.Component {
     constructor(props) {
         super(props)
+        // initialize state
+        this.state = {
+            right: -props.pipeWidth
+        }
+        // react state animation wrapper
+        this._animate = new Animate(this)
     }
 
     componentDidMount() {
-        var pipe = React.findDOMNode(this.refs.pipe),
-            $pipe = $(pipe)
-        $pipe.animate({
-            right: '+=' + (this.props.canvasWidth + pipe.offsetWidth) + 'px'
-        }, this.props.pipeInterval * 2, 'linear')
+        this._animate.linear('right', this.props.canvasWidth, this.props.pipeInterval * 2)
+    }
+
+    componentWillUnmount() {
+        this.stop()
     }
 
     getGapPos() {
@@ -26,12 +32,12 @@ export default class Pipe extends React.Component {
     }
 
     stop() {
-        $(React.findDOMNode(this.refs.pipe)).stop()
+        this._animate.stop()
     }
 
     render() {
         return (
-            <div className="pipe" ref="pipe">
+            <div className="pipe" ref="pipe" style={{right: this.state.right + 'px'}}>
                 <div style={{height: this.props.topHeight + 'px'}} className="pipeTopHalf"></div>
                 <div style={{height: this.props.bottomHeight + 'px'}} className="pipeBottomHalf"></div>
             </div>
@@ -40,6 +46,7 @@ export default class Pipe extends React.Component {
 }
 
 Pipe.defaultProps = {
+    pipeWidth: 60,
     pipeInterval: 0,
     canvasWidth: 0,
     gapHeight: 0
