@@ -23,7 +23,7 @@ export default class Canvas extends React.Component {
     watchPos() {
         if(this.state.phase === 'RUNNING'){
             var res = this.detectCollision()
-            if(!res){ return true }
+            if(!res || this.props.setting.noHit){ return true }
             if(res.state === 'HIT'){
                 // collision detected & game end
                 this._fail()
@@ -70,7 +70,7 @@ export default class Canvas extends React.Component {
                 this.setState({phase: 'RUNNING', count: 0, pipes: []}, () => {
                     this.refs.octopus.setState({bottom: this.refs.octopus.props.initBottom}, () => {
                         this._loop.start()
-                        this._pipeTimer = setInterval(this._createPipe.bind(this), this.props.pipeInterval)
+                        this._pipeTimer = setInterval(this._createPipe.bind(this), this.props.setting.pipeInterval)
                         this.refs.octopus.jump()
                     })
                 })
@@ -99,7 +99,7 @@ export default class Canvas extends React.Component {
             topHeight: topHeight,
             bottomHeight: bottomHeight,
             gapHeight: this.props.gapHeight,
-            pipeInterval: this.props.pipeInterval,
+            pipeInterval: this.props.setting.pipeInterval,
             canvasWidth: this.canvasWidth
         })})
     }
@@ -112,6 +112,10 @@ export default class Canvas extends React.Component {
         this.setState({phase: 'ENDING'}, () => {
             this.refs.octopus.fall().then(() => this.setState({phase: 'INTRO'}))
         })
+    }
+
+    reset() {
+        this._fail()
     }
 
     // update counter
@@ -140,6 +144,5 @@ export default class Canvas extends React.Component {
 
 
 Canvas.defaultProps = {
-    pipeInterval: 1600,
     gapHeight: 120
 }
