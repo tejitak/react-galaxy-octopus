@@ -1,5 +1,5 @@
 import React from 'react'
-import Animate from '../../util/Animate'
+import ReactStateAnimation from 'react-state-animation'
 
 export default class Pipe extends React.Component {
     constructor(props) {
@@ -9,7 +9,7 @@ export default class Pipe extends React.Component {
             right: -props.pipeWidth
         }
         // react state animation wrapper
-        this._animate = new Animate(this)
+        this._animate = new ReactStateAnimation(this)
     }
 
     componentDidMount() {

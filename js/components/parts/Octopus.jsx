@@ -1,5 +1,5 @@
 import React from 'react'
-import Animate from '../../util/Animate'
+import ReactStateAnimation from 'react-state-animation'
 
 export default class Octopus extends React.Component {
     constructor(props) {
@@ -9,7 +9,7 @@ export default class Octopus extends React.Component {
             bottom: props.initBottom
         }
         // react state animation wrapper
-        this._animate = new Animate(this)
+        this._animate = new ReactStateAnimation(this)
     }
 
     getPos() {

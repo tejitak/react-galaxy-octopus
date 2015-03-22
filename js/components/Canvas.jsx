@@ -1,5 +1,5 @@
 import React from 'react'
-import Loop from '../util/Loop'
+import Loop from 'react-state-animation/src/Loop'
 import Counter from './parts/Counter'
 import Octopus from './parts/Octopus'
 import Pipe from './parts/Pipe'
