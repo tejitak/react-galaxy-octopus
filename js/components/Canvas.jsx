@@ -1,8 +1,10 @@
 import React from 'react'
-import Loop from 'react-state-animation/src/Loop'
+import ReactStateAnimation from 'react-state-animation'
 import Counter from './parts/Counter'
 import Octopus from './parts/Octopus'
 import Pipe from './parts/Pipe'
+
+var Loop = ReactStateAnimation.Loop
 
 export default class Canvas extends React.Component {
     constructor(props) {
