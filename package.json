@@ -22,7 +22,7 @@
     "gulp-uglify": "~1.0.2",
     "gulp-webpack": "^1.2.0",
     "react": "^0.13.0",
-    "react-state-animation": "0.0.5",
+    "react-state-animation": "0.0.6",
     "webpack": "^1.5.3",
     "yargs": "^3.5.4"
   }

@@ -29,14 +29,18 @@ export default class Octopus extends React.Component {
                 canvasH = this.props.canvasHeight,
                 reverse = this.props.reverse,
                 operator = reverse ? -1 : 1,
-                distance = reverse ? pos.t + pos.h : canvasH - pos.t,
+                distance = reverse ? pos.t : canvasH - pos.t - pos.h,
                 totalFallTime = 1000/*time for fall*/ * distance / canvasH
             // rotate by css transform
             this.rotate(90 * operator)
-            this._animate
-                .stop()
-                .linear('bottom', reverse ? canvasH - pos.h : 0, totalFallTime)
-                .then(resolve)
+            if(distance < 10){
+                resolve()
+            }else{
+                this._animate
+                    .stop()
+                    .linear('bottom', reverse ? canvasH - pos.h : 0, totalFallTime)
+                    .then(resolve)
+            }
         })
     }
 
